@@ -17,16 +17,17 @@ class Download_image extends CI_Controller
     function ambil_foto()
     {
         $url_lama = "https://diskominfo.jemberkab.go.id/code/storage/app/feed/";
-        $path_image = "../kominfoweb/assets/uploads/files/";
+        // $path_image = "../kominfoweb/assets/uploads/files/";
+        $path_image = "C:/xampp/htdocs/kominfoweb/assets/uploads/files/";
 
-        $ds = DIRECTORY_SEPARATOR;
+        // $ds = DIRECTORY_SEPARATOR;
 
         $image_list_json = file_get_contents($url_lama . 'list.php');
         $image_list = json_decode($image_list_json, true);
         $image_list_files = $image_list['files'];
 
-        // $limit = count($image_list_files);
-        $limit =1;
+        $limit = count($image_list_files);
+        // $limit = 1;
         $i = 0;
         echo "######################################\n";
         echo "MENGUNDUH FOTO\n";
@@ -41,8 +42,10 @@ class Download_image extends CI_Controller
 
             // Save image 
             $hasil = file_put_contents($img, file_get_contents($url));
-            echo "\n";
-            echo $hasil . "-" . $foto;
+            if ($hasil) {
+                echo "\n";
+                echo  $img." -> berhasil ";
+            }
             $i++;
         }
         echo "\nselesai\n";
